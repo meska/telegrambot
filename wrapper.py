@@ -8,7 +8,7 @@
 import urllib3
 urllib3.disable_warnings()
 import requests,json
-from telegram_bot.parser import Parser
+from telegrambot.parser import Parser
 from threading import Timer
 from django.core.cache import cache
 from django.conf import settings
@@ -26,7 +26,7 @@ class Bot:
   
     def setWebhook(self):
         from django.core.urlresolvers import reverse
-        whurl = "%s%s" % (settings.SERVER_URL,reverse('telegram_bot.views.webhook'))
+        whurl = "%s%s" % (settings.SERVER_URL,reverse('telegrambot.views.webhook'))
         r = self.post('setWebhook',{'url':whurl.replace('http:','https:')})
         print "Telegram WebHook Setup: %s" % r
   

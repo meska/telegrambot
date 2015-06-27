@@ -1,5 +1,5 @@
 from django.contrib import admin
-from telegram_bot.models import *
+from telegrambot.models import *
 # Register your models here.
 
 class TelegramUserAdmin(admin.ModelAdmin):

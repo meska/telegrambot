@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from telegram_bot.wrapper import Bot 
+from telegrambot.wrapper import Bot 
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 

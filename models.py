@@ -15,7 +15,7 @@ class TelegramUser(models.Model):
 
     
     class Meta:
-        app_label = 'telegram_bot'    
+        app_label = 'telegrambot'    
     
     
     
@@ -32,7 +32,7 @@ class TelegramUserAlert(models.Model):
 
     #----------------------------------------------------------------------
     def sendAlert(self,event,tipo):
-        from telegram_bot.wrapper import Bot
+        from telegrambot.wrapper import Bot
         if tipo == 'motion':
             if not cache.get("%s-%s-%s" % (__name__,tipo,self.user.user_id)):
                 b = Bot(settings.TELEGRAM_BOT_TOKEN)
@@ -54,7 +54,7 @@ class TelegramUserAlert(models.Model):
                     cache.set("%s-%s-%s" % (__name__,tipo,self.user.user_id),True,30)
         
     class Meta:
-        app_label = 'telegram_bot'      
+        app_label = 'telegrambot'      
         
     
     

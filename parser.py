@@ -30,7 +30,7 @@ class Parser():
     
     def getUser(self,message):
         # get or create user from db
-        from telegram_bot.models import TelegramUser
+        from telegrambot.models import TelegramUser
         u,created = TelegramUser.objects.get_or_create(user_id=message['from']['id'])
         save = False
 
@@ -116,7 +116,7 @@ class Parser():
         self.bot.action_typing(chat_id)
         # carica l'elenco delle telecamere
         from motioncontrol.models import Cam
-        from telegram_bot.models import TelegramUserAlert
+        from telegrambot.models import TelegramUserAlert
         
         keys = []
         for c in Cam.objects.all():
