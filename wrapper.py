@@ -5,10 +5,7 @@
   Purpose: Wrapper to telegram bot api
   Created: 06/25/15
 """
-import urllib3
-urllib3.disable_warnings()
 import requests,json
-from telegrambot.parser import Parser
 from threading import Timer
 from django.core.cache import cache
 from django.conf import settings
@@ -22,13 +19,13 @@ class Bot:
     def __init__(self,token):
         """Constructor"""
         self.token = token
-        self.parser = Parser(self)
   
     def setWebhook(self):
         from django.core.urlresolvers import reverse
         whurl = "%s%s" % (settings.SERVER_URL,reverse('telegrambot.views.webhook'))
         r = self.post('setWebhook',{'url':whurl.replace('http:','https:')})
         print "Telegram WebHook Setup: %s" % r
+            
   
     def get(self,method,params=None):
         
@@ -107,11 +104,8 @@ class Bot:
             if updates:
                 cache.set('tgbot-update-id',updates[-1]['update_id'] + 1)
                 for update in updates:
-                    try:
-                        self.parser.parse(update['message'])
-                    except Exception,e:
-                        print "Parsing Error: %s" % e
-                    #print "<-- %s" % update
+                    from telegrambot.signals import message_received
+                    message_received.send(sender=self, message=update['message'])
         except Exception,e:
             print "Getupdates Error %s" % e
         finally:

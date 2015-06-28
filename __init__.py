@@ -1,12 +1,1 @@
-import sys
-
-
-def setWebhook():
-    from django.conf import settings
-    from telegrambot.wrapper import Bot
-    b = Bot(settings.TELEGRAM_BOT_TOKEN)
-    b.setWebhook()
-
-if 'runserver' in sys.argv:
-    from threading import Timer
-    Timer(10,setWebhook).start()
+default_app_config = 'telegrambot.apps.TelegramBotConfig'
