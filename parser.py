@@ -6,7 +6,7 @@
   Created: 06/25/15
 """
 
-from cStringIO import StringIO
+from io import BytesIO
 import re
 import requests,json
 from threading import Thread
@@ -73,7 +73,7 @@ class Parser():
         res = f.json()
         boobsurl = 'http://media.oboobs.ru/' + res[0]['preview']
         res = requests.get(boobsurl)
-        fp = StringIO()
+        fp = BytesIO()
         fp.write(res.content)
         fp.seek(0)
         self.bot.sendPhoto(chat_id,fp)
@@ -85,7 +85,7 @@ class Parser():
         res = f.json()
         boobsurl = 'http://media.obutts.ru/' + res[0]['preview']
         res = requests.get(boobsurl)
-        fp = StringIO()
+        fp = BytesIO()
         fp.write(res.content)
         fp.seek(0)
         self.bot.sendPhoto(chat_id,fp)             
@@ -161,7 +161,7 @@ class Parser():
         self.bot.action_typing(chat_id)
         try:
             c = Cam.objects.get(name=args[0])
-            fp = StringIO()
+            fp = BytesIO()
             c.snapshot().save(fp,'JPEG')
             fp.seek(0)
             self.bot.sendPhoto(user.user_id,fp,reply_markup={'hide_keyboard':True})

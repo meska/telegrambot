@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.cache import cache
 from django.conf import settings
-from cStringIO import StringIO
+from io import BytesIO
 import sys
 
 
@@ -36,7 +36,7 @@ class TelegramUserAlert(models.Model):
         if tipo == 'motion':
             if not cache.get("%s-%s-%s" % (__name__,tipo,self.user.user_id)):
                 b = Bot(settings.TELEGRAM_BOT_TOKEN)
-                fp = StringIO()
+                fp = BytesIO()
                 event.snapshot().save(fp,'JPEG')
                 fp.seek(0)            
                 b.sendPhoto(self.user.user_id, fp, caption='motion alert %s' % self.camera.name)
@@ -47,7 +47,7 @@ class TelegramUserAlert(models.Model):
             if img:
                 if not cache.get("%s-%s-%s" % (__name__,tipo,self.user.user_id)):
                     b = Bot(settings.TELEGRAM_BOT_TOKEN)
-                    fp = StringIO()
+                    fp = BytesIO()
                     event.img().save(fp,'JPEG')
                     fp.seek(0)            
                     b.sendPhoto(self.user.user_id, fp, caption='picture alert %s' % self.camera.name)

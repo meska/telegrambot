@@ -16,7 +16,7 @@ class TelegramBotConfig(AppConfig):
                 b.setWebhook()
             else:
                 b.post('setWebhook',{'url':''})
-                print "Telegram WebHook Disabled"
+                print("Telegram WebHook Disabled")
                 Timer(10,b.getUpdates).start()
                 
                
