@@ -8,8 +8,8 @@ class TelegramBotConfig(AppConfig):
     verbose_name = "Telegram Bot"
 
     def ready(self):
+        from django.conf import settings
         if 'runserver' in sys.argv:
-            from django.conf import settings
             from telegrambot.wrapper import Bot
             b = Bot(settings.TELEGRAM_BOT_TOKEN)
             if not settings.TELEGRAM_USE_WEBHOOK:
@@ -18,6 +18,8 @@ class TelegramBotConfig(AppConfig):
                 Timer(10,b.getUpdates).start()
                 
         if settings.TELEGRAM_USE_WEBHOOK:
+            from telegrambot.wrapper import Bot
+            b = Bot(settings.TELEGRAM_BOT_TOKEN)            
             b.setWebhook()               
 
         import telegrambot.signals
