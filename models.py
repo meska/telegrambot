@@ -2,7 +2,6 @@ from django.db import models
 from django.core.cache import cache
 from django.conf import settings
 from io import BytesIO
-import sys
 
 
 # Create your models here.

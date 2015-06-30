@@ -8,9 +8,7 @@
 
 from io import BytesIO
 import re
-import requests,json
-from threading import Thread
-
+import requests
 
 
 class Parser():
@@ -165,7 +163,7 @@ class Parser():
             c.snapshot().save(fp,'JPEG')
             fp.seek(0)
             self.bot.sendPhoto(user.user_id,fp,reply_markup={'hide_keyboard':True})
-        except:
+        except Exception as e:
             self.bot.sendMessage( user.user_id,"Error Retrieving Snapshot from %s" % text ,reply_markup={'hide_keyboard':True} )
 
     

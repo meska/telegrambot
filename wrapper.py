@@ -85,6 +85,7 @@ class Bot:
             'reply_to_message_id':reply_to_message_id,
             'reply_markup':json.dumps(reply_markup)
         })
+        #TODO: check result
 
         
     def sendPhoto(self,chat_id,photo,caption=None,reply_to_message_id=None,reply_markup=None):
@@ -94,7 +95,7 @@ class Bot:
             'reply_to_message_id':reply_to_message_id,
             'reply_markup':json.dumps(reply_markup)
         },files={'photo':('image.jpg', photo, 'image/jpeg', {'Expires': '0'})})        
-        #print("--> %s" % r)
+        #TODO: check result
     
     def getUpdates(self):
         updates = self.get('getUpdates',{'offset':cache.get('tgbot-update-id')})
@@ -102,7 +103,6 @@ class Bot:
             if updates:
                 cache.set('tgbot-update-id',updates[-1]['update_id'] + 1)
                 for update in updates:
-                    from telegrambot.signals import message_received
                     message_received.send(sender=self, message=update['message'])
         except Exception as e:
             print("Getupdates Error %s" % e)

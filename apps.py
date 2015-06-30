@@ -1,5 +1,4 @@
 from django.apps import AppConfig
-from django.conf import settings
 from threading import Timer
 import sys
 
@@ -9,6 +8,7 @@ class TelegramBotConfig(AppConfig):
 
     def ready(self):
         from django.conf import settings
+        
         if 'runserver' in sys.argv:
             from telegrambot.wrapper import Bot
             b = Bot(settings.TELEGRAM_BOT_TOKEN)
