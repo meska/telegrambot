@@ -32,7 +32,7 @@ class Bot:
         
         if DEBUG_GET_POST: print("GET --> %s %s" % (method,params))
         
-        r = requests.get("%s/bot%s/%s" % (self.api_url,self.token,method),params,timeout=30)
+        r = requests.get("%s/bot%s/%s" % (self.api_url,self.token,method),params,timeout=5)
         
         if DEBUG_GET_POST: print("GET <-- %s" % r)
             
